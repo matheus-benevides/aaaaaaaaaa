@@ -31,7 +31,20 @@
                 <tbody>
                     <?php
                     require "php/conexao.php";
-                    $sql = "SELECT * FROM emprestimos ORDER BY data_emprestimo ASC";
+                    $sql = "SELECT emprestimos.id_emprestimo,
+                        	   emprestimos.obra_emprestimo,
+                        	   usuarios.nome_usuario,
+                               obras.nome_obra,
+                               emprestimos.data_emprestimo,
+                               emprestimos.data_prevista_emprestimo,
+                               emprestimos.data_devolucao_emprestimo
+                        FROM
+                        	emprestimos
+                        INNER JOIN
+                        	  usuarios ON emprestimos.usuario_emprestimo = usuarios.id_usuario
+                        INNER JOIN
+                              obras ON emprestimos.obra_emprestimo = obras.id_obra
+                         ORDER BY data_emprestimo ASC";
                     // DESC É do mais recente para o mais antigo
                     // ASC É do mais antigo pro mais novo
                     $executando = mysqli_query($con, $sql);
@@ -42,8 +55,10 @@
                         while ($linha = mysqli_fetch_array($executando)) {
                             echo "<tr>";
                             echo "<td>" . $linha['id_emprestimo'] . "</td>";
-                            echo "<td>" . $linha['usuario_emprestimo'] . "</td>";
-                            echo "<td>" . $linha['obra_emprestimo'] . "</td>";
+                            // echo "<td>" . $linha['usuario_emprestimo'] . "</td>";
+                            echo "<td>" . $linha['nome_usuario'] . "</td>";
+                            // echo "<td>" . $linha['obra_emprestimo'] . "</td>";
+                            echo "<td>" . $linha['nome_obra'] . "</td>";
                             echo "<td>" . $linha['data_emprestimo'] . "</td>";
                             echo "<td>" . $linha['data_prevista_emprestimo'] . "</td>";
                             echo "<td>" . $linha['data_devolucao_emprestimo'] . "</td>";
