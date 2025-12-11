@@ -25,11 +25,11 @@
                     $data_emp = $_POST['data_emp'];
                     $data_prev = $_POST['data_prev'];
 
-                    $insert = "INSERT INTO emprestimo(
+                    $insert = "INSERT INTO emprestimos(
                         usuario_emprestimo,
                         obra_emprestimo,
                         data_emprestimo,
-                        data_prevista_emprestimo,
+                        data_prevista_emprestimo
                     )VALUES(
                         '$nome',
                         '$obra',
@@ -42,12 +42,14 @@
                     $update = "UPDATE obras SET emprestimo_obra = 1 WHERE id_obra = $obra";
                     mysqli_query($con, $update);
 
+                    echo "<div class='sucesso'>Sucesso!</div>";
+
                     mysqli_close($con);
                 }
                 ?>
                 <div class="caixa-input">
                     <label for="">Nome:</label>
-                    <select name="usuarios" id="usuarios">
+                    <select name="nome" id="nome">
                         <?php
                         require 'php/conexao.php';
 
@@ -91,18 +93,16 @@
                 </div>
                 <div class="caixa-input">
                     <label for="">Data de Emprestimo:</label>
-                    <input type="date" name="data_emp" id="data_emp" required value='<?php date_default_timezone_set('America/Sao_Paulo');
-                                                                                        echo date("Y-m-d"); ?>'>
+                    <input type="date" name="data_emp" id="data_emp" required value='<?php date_default_timezone_set('America/Sao_Paulo'); echo date("Y-m-d"); ?>'>
                 </div>
                 <div class="caixa-input">
                     <label for="">Data de Devolução Prevista:</label>
-                    <input type="date" name="data_prev" id="data_prev" required value='<?php date_default_timezone_set('America/Sao_Paulo');
-                                                                                        echo date("Y-m-d"); ?>'>
-                </div>
-                <div class="caixa-btn">
-                    <button>Cadastrar</button>
+                    <input type="date" name="data_prev" id="data_prev" required value='<?php date_default_timezone_set('America/Sao_Paulo'); echo date("Y-m-d"); ?>'>
                 </div>
             </fieldset>
+            <div class="caixa-btn">
+                <button>Cadastrar</button>
+            </div>
         </form>
     </main>
 </body>

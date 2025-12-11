@@ -15,9 +15,17 @@
     --corTxt: #FFF;
     --corTxt2: #000;
 
-    --corFundo: #fff;
+    --corFundo: #f5f5f5;
     --corFundo2: #F9F9F9;
     --sombra: 0px 0px 4px 3px rgba(116, 116, 116, 0.5);
+
+    --destaque: #ffd000;
+    --destaque2: #cca701;
+    --destaqueTab: rgba(235, 216, 129, 0.2);
+    --sombra2: 0px 0px 4px 3px #ffd00049;
+
+    --sucesso: #44fa33;
+    --erro: #fa3333;
 }
 
 body{
@@ -25,6 +33,8 @@ body{
     height: 100vh;
     background: var(--corFundo);
     color: var(--corTxt2);
+    display: flex;
+    justify-content: center;
 }
 
 nav{
@@ -38,26 +48,34 @@ nav{
     box-shadow: var(--sombra);
     color: var(--corTxt2);
     position: fixed;
+    z-index: 2;
 }
 .nav-header{
     padding-left: 35px;
+    border-right: 2px solid #999999dd;
+    padding-right: 35px;
 }
 
 .nav-links{
-    margin: 0 auto;
+    padding-right: 35px;
 }
 
 .nav-links a{
     color: var(--corTxt2);
-    padding: 12px;
+    padding: 10px;
     text-decoration: none;
     font-size: 17px;
     font-weight: bold;
     border-radius: 15px;
     &:hover{
         background: rgba(116, 116, 116, 0.1);
-        color: var(--corTxt);
+        color: var(--destaque);
     }
+}
+
+.nav-links a.ativo{
+    color: var(--destaque);
+    background: rgba(116, 116, 116, 0.1);
 }
 
 .container-principal{
@@ -77,7 +95,7 @@ nav{
     padding: 15px;
     width: 80%;
     border-radius: 10px;
-    border-bottom: 2px solid var(--corTxt2);
+    border-bottom: 2px solid var(--destaque);
     gap: 20px;
     font-weight: bold;
 }
@@ -117,7 +135,7 @@ nav{
     &:hover{
         background: var(--corTxt2);
         color: var(--corTxt);
-        border-color: var(--corTxt);
+        border-color: var(--destaque);
         box-shadow: var(--sombra);
     }
 }
@@ -128,7 +146,7 @@ form{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 520px;
+    height: 600px;
     background: var(--corFundo2);
     border-radius: 15px;
     color: var(--corTxt2);
@@ -152,8 +170,9 @@ form fieldset legend{
     font-size: 20px;
     width: 90%;
     display: flex;
+    justify-content: space-around;
     padding: 10px;
-    border-bottom: 2px solid var(--corTxt2);
+    border-bottom: 2px solid var(--destaque);
 }
 
 .caixa-input{
@@ -162,11 +181,9 @@ form fieldset legend{
     width: 100%;    
     border: none;
     align-items: center;
-}
-
-.caixa-input{
     padding: 15px;
 }
+
 
 .caixa-input input, .caixa-input select{
     border: none;
@@ -179,29 +196,106 @@ form fieldset legend{
         color: #999999dd;
     }
     &:focus{
-        box-shadow: 0px 1px 5px 3px rgba(25,25,25,0.5);
+        /* box-shadow: 0px 1px 5px 3px rgba(25,25,25,0.5); */
+        box-shadow: var(--sombra2);
+        border-color: var(--destaque);
     }
 }
 
-.caixa-input select:focus{
-    background: var(--corTxt2);
+.sucesso{
+    width: 100%;
+    background: var(--sucesso);
+    padding: 15px;
+    text-align: center;
     color: var(--corTxt);
-    box-shadow: unset;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.erro{
+    width: 100%;
+    background: var(--erro);
+    padding: 15px;
+    color: var(--corTxt);
+    text-align: center;
+    border-radius: 15px 15px 0px 0px;
 }
 
 .tabela-aqui{
     width: 60%;
+    max-height: 350px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     overflow: auto;
-    border: 2px solid var(--corTxt2);
+    box-shadow: var(--sombra2);
     border-radius: 15px;
-    padding: 15px;
 }
 
 table{
     text-align: center;
     width: 100%;
     border-collapse: collapse;
+}
+
+table thead th{
+    padding: 15px;
+    background: var(--destaque);
+    color: var(--corTxt);
+}
+
+table tbody tr td{
+    padding: 15px;
+}
+
+table tbody tr:hover{
+    background-color: var(--destaqueTab);
+}
+
+button{
+    width: 100px;
+    height: 35px;
+    font-weight: bold;
+    background: var(--destaque);
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: var(--corTxt);
+    &:hover{
+        box-shadow: var(--sombra2);
+        background: var(--destaque2);
+    }
+}
+
+.modalzinha-fundo{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background: rgba(116, 116, 116, 0.7)
+}
+
+#botao_fechar{
+    width: 25px;
+    height: 25px;
+    background: var(--erro);
+}
+
+.atrasado{
+    padding: 5px;
+    color: var(--corTxt);
+    background: var(--erro);
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.ok{
+    padding: 5px;
+    color: var(--corTxt);
+    background: var(--sucesso);
+    border-radius: 5px;
+    font-weight: bold;
 }

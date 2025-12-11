@@ -63,7 +63,7 @@
             </div>
             <div class="caixas-info">
                 <div class="caixas-info-header">
-                    <h4>N° de Empréstimos Total</h4>
+                    <h4>Qntd de Empréstimos Total</h4>
                 </div>
                 <div class="caixas-info-numero">
                     <?php
