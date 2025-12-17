@@ -56,13 +56,9 @@
                         $select = "SELECT * FROM usuarios";
                         $executando = mysqli_query($con, $select);
 
-                        if (mysqli_num_rows($executando) == 0) {
-                            echo "<option value='' disabled selected>Nenhum Usuário Disponível!</option>";
-                        } else {
-                            echo "<option value='' disabled selected>Selecione o Usuário</option>";
-                            while ($linha = mysqli_fetch_array($executando)) {
-                                echo "<option value='" . $linha['id_usuario'] . "'>" . $linha['nome_usuario'] . "</option>";
-                            }
+                        echo "<option value='' disabled selected>Selecione o Usuário</option>";
+                        while ($linha = mysqli_fetch_array($executando)) {
+                            echo "<option value='" . $linha['id_usuario'] . "'>" . $linha['nome_usuario'] . "</option>";
                         }
 
                         mysqli_close($con);
@@ -78,13 +74,9 @@
                         $select = "SELECT * FROM obras WHERE emprestimo_obra = 0";
                         $executando = mysqli_query($con, $select);
 
-                        if (mysqli_num_rows($executando) == 0) {
-                            echo "<option value='' disabled selected>Nenhum Livro Disponível!</option>";
-                        } else {
-                            echo "<option value='' disabled selected>Selecione o Livro</option>";
-                            while ($linha = mysqli_fetch_array($executando)) {
-                                echo "<option value='" . $linha['id_obra'] . "'>" . $linha['nome_obra'] . "</option>";
-                            }
+                        echo "<option value='' disabled selected>Selecione o Livro</option>";
+                        while ($linha = mysqli_fetch_array($executando)) {
+                            echo "<option value='" . $linha['id_obra'] . "'>" . $linha['nome_obra'] . "</option>";
                         }
 
                         mysqli_close($con);
@@ -93,11 +85,11 @@
                 </div>
                 <div class="caixa-input">
                     <label for="">Data de Emprestimo:</label>
-                    <input type="date" name="data_emp" id="data_emp" required value='<?php date_default_timezone_set('America/Sao_Paulo'); echo date("Y-m-d"); ?>'>
+                    <input type="date" name="data_emp" id="data_emp" required>
                 </div>
                 <div class="caixa-input">
                     <label for="">Data de Devolução Prevista:</label>
-                    <input type="date" name="data_prev" id="data_prev" required value='<?php date_default_timezone_set('America/Sao_Paulo'); echo date("Y-m-d"); ?>'>
+                    <input type="date" name="data_prev" id="data_prev" required>
                 </div>
             </fieldset>
             <div class="caixa-btn">

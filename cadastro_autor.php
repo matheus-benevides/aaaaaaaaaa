@@ -15,33 +15,34 @@
     <main class="container-principal">
         <form action="" method="POST">
             <fieldset>
-                <legend>Cadastro de Usuário</legend>
+                <legend>Cadastro de Autor</legend>
                 <?php
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     require 'php/conexao.php';
 
                     $nome = $_POST['nome'];
-                    $cpf = $_POST['cpf'];
-                    $endereco = $_POST['endereco'];
+                    $nacionalidade = $_POST['nacionalidade'];
+                    $idade = $_POST['idade'];
                     $telefone = $_POST['telefone'];
 
-                    $inserindo = "INSERT INTO usuarios(nome_usuario,cpf_usuario,endereco_usuario,telefone_usuario)VALUES('$nome','$cpf','$endereco','$telefone')";
+                    $inserindo = "INSERT INTO autores(nome_autor,nacionalidade_autor,idade_autor,telefone_autor)VALUES('$nome','$nacionalidade','$idade','$telefone')";
                     mysqli_query($con, $inserindo);
                     echo "<div class='sucesso'><p>Sucesso!</p></div>";
+                    
                     mysqli_close($con);
                 }
                 ?>
                 <div class="caixa-input">
                     <label for="">Nome:</label>
-                    <input type="text" name="nome" id="nome" placeholder="Nome de Usuário" required>
+                    <input type="text" name="nome" id="nome" placeholder="Nome do Autor" required>
                 </div>
                 <div class="caixa-input">
-                    <label for="">CPF:</label>
-                    <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required>
+                    <label for="">Nacionalidade:</label>
+                    <input type="text" name="nacionalidade" id="nacionalidade" placeholder="Brasileiro" required>
                 </div>
                 <div class="caixa-input">
-                    <label for="">Endereço:</label>
-                    <input type="text" name="endereco" id="endereco" placeholder="R. Exemplo, 001" required>
+                    <label for="">Idade:</label>
+                    <input type="number" name="idade" id="idade" placeholder="1" required>
                 </div>
                 <div class="caixa-input">
                     <label for="">Telefone:</label>

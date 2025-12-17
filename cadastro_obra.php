@@ -57,15 +57,19 @@
                     <label for="">Gênero:</label>
                     <!-- <input type="text" name="genero" id="genero" placeholder="Gênero" required> -->
                     <select name="genero" id="genero">
-                        <option value="" disabled selected>Selecione um Gênero</option>
-                        <option value="Fantasia">Fantasia</option>
-                        <option value="Ficção Científica">Ficção Científica</option>
-                        <option value="Romance">Romance</option>
-                        <option value="Conto">Conto</option>
-                        <option value="Fábula">Fábula</option>
-                        <option value="Suspense/Mistério">Suspense/Mistério</option>
-                        <option value="Terror">Terror</option>
-                        <option value="Biografia">Biografia</option>
+                        <?php
+                        require 'php/conexao.php';
+
+                        $select = "SELECT * FROM generos";
+                        $executando = mysqli_query($con, $select);
+
+                        echo "<option value='' disabled selected>Selecione o Gênero</option>";
+                        while ($linha = mysqli_fetch_array($executando)) {
+                            echo "<option value='" . $linha['id_generos'] . "'>" . $linha['descricao'] . "</option>";
+                        }
+
+                        mysqli_close($con);
+                        ?>
                     </select>
                 </div>
                 <div class="caixa-input">
@@ -81,14 +85,11 @@
                         $select = "SELECT * FROM autores";
                         $executando = mysqli_query($con, $select);
 
-                        if (mysqli_num_rows($executando) == 0) {
-                            echo "<option value='' disabled selected>Nenhum Autor Registrado!</option>";
-                        } else {
-                            echo "<option value='' disabled selected>Selecione o Autor</option>";
-                            while ($linha = mysqli_fetch_array($executando)) {
-                                echo "<option value='" . $linha['id_autor'] . "'>" . $linha['nome_autor'] . "</option>";
-                            }
+                        echo "<option value='' disabled selected>Selecione o Autor</option>";
+                        while ($linha = mysqli_fetch_array($executando)) {
+                            echo "<option value='" . $linha['id_autor'] . "'>" . $linha['nome_autor'] . "</option>";
                         }
+
                         mysqli_close($con);
                         ?>
                     </select>
@@ -102,14 +103,11 @@
                         $select = "SELECT * FROM editoras";
                         $executando = mysqli_query($con, $select);
 
-                        if (mysqli_num_rows($executando) == 0) {
-                            echo "<option value='' disabled selected>Nenhuma Editora Registrada!</option>";
-                        } else {
-                            echo "<option value='' disabled selected>Selecione a Editora</option>";
-                            while ($linha = mysqli_fetch_array($executando)) {
-                                echo "<option value='" . $linha['id_editora'] . "'>" . $linha['nome_editora'] . "</option>";
-                            }
+                        echo "<option value='' disabled selected>Selecione a Editora</option>";
+                        while ($linha = mysqli_fetch_array($executando)) {
+                            echo "<option value='" . $linha['id_editora'] . "'>" . $linha['nome_editora'] . "</option>";
                         }
+
                         mysqli_close($con);
                         ?>
                     </select>

@@ -31,6 +31,9 @@
                 <tbody>
                     <?php
                     require "php/conexao.php";
+
+                    // $sql = "SELECT * from emprestimos ORDER BY data_emprestimo ASC";
+
                     $sql = "SELECT emprestimos.id_emprestimo,
                         	   emprestimos.obra_emprestimo,
                         	   usuarios.nome_usuario,
@@ -49,35 +52,29 @@
                     // ASC É do mais antigo pro mais novo
                     $executando = mysqli_query($con, $sql);
 
-                    if (mysqli_num_rows($executando) == 0) {
-                        echo "<tr><td colspan=6>Nenhum Emprestimo Registrado!</td></tr>";
-                    } else {
-                        while ($linha = mysqli_fetch_array($executando)) {
-                            echo "<tr>";
-                            echo "<td>" . $linha['id_emprestimo'] . "</td>";
-                            // echo "<td>" . $linha['usuario_emprestimo'] . "</td>";
-                            echo "<td>" . $linha['nome_usuario'] . "</td>";
-                            // echo "<td>" . $linha['obra_emprestimo'] . "</td>";
-                            echo "<td>" . $linha['nome_obra'] . "</td>";
-                            echo "<td>" . $linha['data_emprestimo'] . "</td>";
-                            echo "<td>" . $linha['data_prevista_emprestimo'] . "</td>";
-                            echo "<td>" . $linha['data_devolucao_emprestimo'] . "</td>";
-                            if ($linha['data_prevista_emprestimo'] < date("Y-m-d")) {
-                                echo "<td ><p class='atrasado'>ATRASADO</p></td>";
-                            } else {
-                                echo "<td><p class='ok'>OK</p></td>";
-                            }
-                            $id = $linha['obra_emprestimo'];
-                            if ($linha['data_devolucao_emprestimo'] == null) {
-                                echo "<td><button onclick='devolucao($id)'>Marcar Devolução</button></td>";
-                            } else {
-                                echo "<td><button onclick='jaDevolvido()'>🔒</button></td>";
-                            }
-                            echo "</tr>";
-                            // echo "<tr><td><form method='POST'><p name='".$linha['obra_emprestimo']."' style='display:none;'>".$linha['obra_emprestimo']."</p><button>Marcar Devolução</button></form></td></tr>";
+                    while ($linha = mysqli_fetch_array($executando)) {
+                        echo "<tr>";
+                        echo "<td>" . $linha['id_emprestimo'] . "</td>";
+                        // echo "<td>" . $linha['usuario_emprestimo'] . "</td>";
+                        echo "<td>" . $linha['nome_usuario'] . "</td>";
+                        // echo "<td>" . $linha['obra_emprestimo'] . "</td>";
+                        echo "<td>" . $linha['nome_obra'] . "</td>";
+                        echo "<td>" . $linha['data_emprestimo'] . "</td>";
+                        echo "<td>" . $linha['data_prevista_emprestimo'] . "</td>";
+                        echo "<td>" . $linha['data_devolucao_emprestimo'] . "</td>";
+                        if ($linha['data_prevista_emprestimo'] < date("Y-m-d")) {
+                            echo "<td ><p class='atrasado'>ATRASADO</p></td>";
+                        } else {
+                            echo "<td><p class='ok'>OK</p></td>";
                         }
+                        $id = $linha['obra_emprestimo'];
+                        if ($linha['data_devolucao_emprestimo'] == null) {
+                            echo "<td><button onclick='devolucao($id)'>Marcar Devolução</button></td>";
+                        } else {
+                            echo "<td>🔒</td>";
+                        }
+                        echo "</tr>";
                     }
-
 
                     ?>
                 </tbody>
@@ -87,8 +84,8 @@
             <div class="modalzinha">
                 <form action="" method="POST" style='height: 350px;' id="form-modal">
                     <fieldset>
-                        <legend>
-                            <p>Marcar Devolução de Livro</p><button type='button' id="botao_fechar" onclick="fechar()">X</button>
+                        <legend style="justify-content: space-between">
+                            <p>Marcar Devolução de Livro</p><button type='button' id="botao_fechar" onclick="document.getElementById('modalzinha-fundo').style.display='none'">X</button>
                         </legend>
                         <?php
                         if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -105,33 +102,17 @@
                             echo "<script>window.location.href='controle.php';</script>";
                         }
                         ?>
-                        <div class="caixa-input">
+                        <div class="caixa-input" style="display: none;">
                             <label for="">Obra Número:</label>
                             <input type="number" id="futuro_id_obra" name="futuro_id_obra">
                         </div>
                         <div class="caixa-input">
                             <label for="">Data de Devolução:</label>
-                            <input type="date" name="data_dev" id="data_dev" value="<?php date_default_timezone_set('America/Sao_Paulo'); echo date("Y-m-d"); ?>">
+                            <input type="date" name="data_dev" id="data_dev">
                         </div>
                     </fieldset>
                     <div class="caixa-btn">
                         <button>Marcar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="modalzinha-fundo" id='modalzinha-fundo21' style='display: none;'>
-            <div class="modalzinha">
-                <form action="" style='height: 150px;' id="form-modal">
-                    <fieldset>
-                        <legend style="width:100%">
-                            Obra já devolvida anteriormente
-                        </legend>
-
-                    </fieldset>
-                    <div class="caixa-btn">
-                        <button type='button' onclick="fechar()">Fechar</button>
                     </div>
                 </form>
             </div>
